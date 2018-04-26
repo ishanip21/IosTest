@@ -12,6 +12,10 @@
 		865276F62091798C00A84E94 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 865276F42091798C00A84E94 /* LaunchScreen.storyboard */; };
 		865276F92091798C00A84E94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 865276F82091798C00A84E94 /* main.m */; };
 		8652770220917DF700A84E94 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8652770120917DF700A84E94 /* AppDelegate.m */; };
+		8652770B209184D000A84E94 /* Constans.m in Sources */ = {isa = PBXBuildFile; fileRef = 8652770A209184D000A84E94 /* Constans.m */; };
+		8652770E2091852700A84E94 /* About.m in Sources */ = {isa = PBXBuildFile; fileRef = 8652770D2091852700A84E94 /* About.m */; };
+		865277112091860400A84E94 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 865277102091860400A84E94 /* HomeViewController.m */; };
+		865277142091869E00A84E94 /* AboutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 865277132091869E00A84E94 /* AboutCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +27,14 @@
 		865276F82091798C00A84E94 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8652770020917DF700A84E94 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8652770120917DF700A84E94 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		86527709209184D000A84E94 /* Constans.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constans.h; sourceTree = "<group>"; };
+		8652770A209184D000A84E94 /* Constans.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Constans.m; sourceTree = "<group>"; };
+		8652770C2091852700A84E94 /* About.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = About.h; sourceTree = "<group>"; };
+		8652770D2091852700A84E94 /* About.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = About.m; sourceTree = "<group>"; };
+		8652770F2091860400A84E94 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		865277102091860400A84E94 /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		865277122091869E00A84E94 /* AboutCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutCell.h; sourceTree = "<group>"; };
+		865277132091869E00A84E94 /* AboutCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +109,8 @@
 		8652770520917E1000A84E94 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				865277122091869E00A84E94 /* AboutCell.h */,
+				865277132091869E00A84E94 /* AboutCell.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -104,6 +118,8 @@
 		8652770620917E1000A84E94 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8652770C2091852700A84E94 /* About.h */,
+				8652770D2091852700A84E94 /* About.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -111,6 +127,8 @@
 		8652770720917E1000A84E94 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				8652770F2091860400A84E94 /* HomeViewController.h */,
+				865277102091860400A84E94 /* HomeViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -118,6 +136,8 @@
 		8652770820917E1000A84E94 /* Constant */ = {
 			isa = PBXGroup;
 			children = (
+				86527709209184D000A84E94 /* Constans.h */,
+				8652770A209184D000A84E94 /* Constans.m */,
 			);
 			path = Constant;
 			sourceTree = "<group>";
@@ -194,7 +214,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8652770220917DF700A84E94 /* AppDelegate.m in Sources */,
+				865277142091869E00A84E94 /* AboutCell.m in Sources */,
+				8652770E2091852700A84E94 /* About.m in Sources */,
 				865276F92091798C00A84E94 /* main.m in Sources */,
+				865277112091860400A84E94 /* HomeViewController.m in Sources */,
+				8652770B209184D000A84E94 /* Constans.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,6 +355,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2J5PF7BJBS;
 				INFOPLIST_FILE = IosTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Ishan.IosTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -345,6 +370,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2J5PF7BJBS;
 				INFOPLIST_FILE = IosTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Ishan.IosTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";

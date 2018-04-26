@@ -10,4 +10,7 @@
 
 @implementation Constans
 
+NSString *const FEED_URL        = @"https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json";
+NSString *const ERROR_MESSAGE   = @"Oops! internet connection lost. Please try again.";
+
 @end

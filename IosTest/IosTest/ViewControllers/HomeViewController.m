@@ -8,8 +8,11 @@
 
 #import "HomeViewController.h"
 #import "AboutCell.h"
+#import "About.h"
 
-@interface HomeViewController ()
+@interface HomeViewController () {
+    NSArray *feedsArray;
+}
 
 @end
 
@@ -20,18 +23,47 @@ static NSString * const reuseIdentifier = @"AboutCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
     // Register cell classes
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    [self.collectionView registerClass:[AboutCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    [self getDataFromAPI];
     
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Custom methods
+
+-(void)showAlertWithMessage:(NSString *)message {
+    UIAlertController *alertController = [UIAlertController
+                                          alertControllerWithTitle:nil
+                                          message:message
+                                          preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okButton = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alertController addAction:okButton];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)getDataFromAPI {
+    [About callGetFeedAPI:self.navigationController.view completion:^(NSArray *feedArray) {
+        feedsArray = feedArray;
+        [self.collectionView reloadData];
+        
+    } error:^(NSString *error) {
+        [self showAlertWithMessage:error];
+    }];
+}
+
+#pragma mark - Action methods
+
+- (IBAction)tapRefresh:(UIBarButtonItem *)sender {
+    [self getDataFromAPI];
+    feedsArray = nil;
+    [self.collectionView reloadData];
 }
 
 /*
@@ -47,20 +79,29 @@ static NSString * const reuseIdentifier = @"AboutCell";
 #pragma mark - UICollectionViewDataSource
 
 //- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-//    return 0;
+//    return 1;
 //}
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 10;
+    return [feedsArray count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     AboutCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
 
-    cell.titleLabel.text = [NSString stringWithFormat:@"TITle %li", (long)indexPath.row];
+    About *about = [feedsArray objectAtIndex:indexPath.row];
+    
+    cell.titleLabel.text = about.feedTitle;
+    cell.titleLabel.textColor = [UIColor yellowColor];
+    cell.descriptionLabel.text = about.description;
+    [cell setBackgroundColor:[UIColor redColor]];
     
     return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(350, 100);
 }
 
 #pragma mark <UICollectionViewDelegate>

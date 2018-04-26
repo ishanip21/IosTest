@@ -10,4 +10,7 @@
 
 @interface Constans : NSObject
 
+extern NSString *const FEED_URL;
+extern NSString *const ERROR_MESSAGE;
+
 @end

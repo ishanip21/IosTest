@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="MEp-XN-Iis">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -31,22 +32,29 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esB-yt-4aV">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esB-yt-4aV">
                                             <rect key="frame" x="20" y="20" width="335" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f01-8U-hjj">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f01-8U-hjj">
                                             <rect key="frame" x="20" y="50" width="335" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </view>
+                                <constraints>
+                                    <constraint firstItem="esB-yt-4aV" firstAttribute="leading" secondItem="VN5-6s-YF3" secondAttribute="leadingMargin" constant="12" id="1GS-T4-fVH"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="f01-8U-hjj" secondAttribute="trailing" constant="12" id="Avv-NO-CM9"/>
+                                    <constraint firstItem="esB-yt-4aV" firstAttribute="top" secondItem="VN5-6s-YF3" secondAttribute="topMargin" constant="12" id="F7Q-z5-3bs"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="esB-yt-4aV" secondAttribute="trailing" constant="12" id="I2B-Oo-cf0"/>
+                                    <constraint firstItem="f01-8U-hjj" firstAttribute="leading" secondItem="VN5-6s-YF3" secondAttribute="leadingMargin" constant="12" id="QIW-d6-PAR"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="f01-8U-hjj" secondAttribute="bottom" constant="21" id="aIm-nI-xpW"/>
+                                    <constraint firstItem="f01-8U-hjj" firstAttribute="top" secondItem="esB-yt-4aV" secondAttribute="bottom" constant="9" id="ubn-8h-Sf6"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="descriptionLabel" destination="f01-8U-hjj" id="XCM-b0-WaQ"/>
                                     <outlet property="titleLabel" destination="esB-yt-4aV" id="Z4Y-KR-6ld"/>

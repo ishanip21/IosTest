@@ -24,9 +24,9 @@ static NSString * const reuseIdentifier = @"AboutCell";
     [super viewDidLoad];
     
     // Register cell classes
-    [self.collectionView registerClass:[AboutCell class] forCellWithReuseIdentifier:reuseIdentifier];
-    [self getDataFromAPI];
+    //[self.collectionView registerClass:[AboutCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
+    [self getDataFromAPI];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -78,11 +78,6 @@ static NSString * const reuseIdentifier = @"AboutCell";
 
 #pragma mark - UICollectionViewDataSource
 
-//- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-//    return 1;
-//}
-
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return [feedsArray count];
 }
@@ -92,10 +87,8 @@ static NSString * const reuseIdentifier = @"AboutCell";
 
     About *about = [feedsArray objectAtIndex:indexPath.row];
     
-    cell.titleLabel.text = about.feedTitle;
-    cell.titleLabel.textColor = [UIColor yellowColor];
-    cell.descriptionLabel.text = about.description;
-    [cell setBackgroundColor:[UIColor redColor]];
+    cell.titleLabel.text        = about.feedTitle;
+    cell.descriptionLabel.text  = about.feedDescription;
     
     return cell;
 }

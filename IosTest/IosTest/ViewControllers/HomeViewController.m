@@ -94,10 +94,12 @@
 #pragma mark - Action methods
 
 - (IBAction)tapRefresh:(UIBarButtonItem *)sender {
-    [self getDataFromAPI];
     feedsArray = nil;
     [cellSizeDictionary removeAllObjects];
     [self.collectionView reloadData];
+    
+    [self getDataFromAPI];
+    
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -122,10 +124,13 @@
                 about.feedImage = image;
                 //add image size into dictionary
                 [cellSizeDictionary setObject:[NSValue valueWithCGSize:CGSizeMake(image.size.width, image.size.height)] forKey:[NSNumber numberWithInteger:indexPath.row]];
-                [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+                
+                if (feedsArray) {
+                    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+                }
                 
             } errorBlock:^(NSString *error) {
-                [cellSizeDictionary setObject:[NSValue valueWithCGSize:CGSizeMake(0, 150)] forKey:[NSNumber numberWithInteger:indexPath.row]];
+                [cellSizeDictionary setObject:[NSValue valueWithCGSize:CGSizeMake(0, 50)] forKey:[NSNumber numberWithInteger:indexPath.row]];
             }];
             
         } else {
@@ -134,7 +139,7 @@
         }
     } else {
         //Image url is empty, reset the constant and hide the image view
-        [cellSizeDictionary setObject:[NSValue valueWithCGSize:CGSizeMake(0, 150)] forKey:[NSNumber numberWithInteger:indexPath.row]];
+        [cellSizeDictionary setObject:[NSValue valueWithCGSize:CGSizeMake(0, 50)] forKey:[NSNumber numberWithInteger:indexPath.row]];
         [cell.bannerImageView setHidden:YES];
     }
     cell.bannerButton.tag = indexPath.row;

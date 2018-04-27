@@ -22,6 +22,9 @@
     [super viewDidLoad];
     
     self.title = self.about.feedTitle;
+    self.navigationController.navigationBar.topItem.title = @"";
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+
     
     self.tableView.estimatedRowHeight = 230.0f;
     self.tableView.rowHeight          = UITableViewAutomaticDimension;

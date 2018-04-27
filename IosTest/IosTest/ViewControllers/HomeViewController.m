@@ -9,25 +9,53 @@
 #import "HomeViewController.h"
 #import "DetailViewController.h"
 #import <SWNetworking/UIImageView+SWNetworking.h>
+#import "CHTCollectionViewWaterfallLayout.h"
 #import "AboutCell.h"
 #import "About.h"
 
-@interface HomeViewController () {
-    NSArray *feedsArray;
+#define HEADER_IDENTIFIER @"WaterfallHeader"
+#define FOOTER_IDENTIFIER @"WaterfallFooter"
+
+@interface HomeViewController ()<CHTCollectionViewDelegateWaterfallLayout> {
+    NSArray             *feedsArray;
+    NSMutableArray      *cellSize;
+    NSMutableDictionary *cellSizeDictionary;
 }
 
 @end
 
 @implementation HomeViewController
 
-static NSString * const reuseIdentifier = @"AboutCell";
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"About Canada";
+    CHTCollectionViewWaterfallLayout *layout    = [[CHTCollectionViewWaterfallLayout alloc] init];
+    layout.sectionInset                         = UIEdgeInsetsMake(10, 10, 10, 10);
+    self.collectionView.collectionViewLayout    = layout;
+    self.collectionView.autoresizingMask        = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    [self.collectionView layoutIfNeeded];
+    
+    self.title  = @"About Canada";
+    cellSizeDictionary = [[NSMutableDictionary alloc] init];
     [self getDataFromAPI];
 }
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self updateLayoutForOrientation:[UIApplication sharedApplication].statusBarOrientation];
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    [self updateLayoutForOrientation:toInterfaceOrientation];
+}
+
+- (void)updateLayoutForOrientation:(UIInterfaceOrientation)orientation {
+    CHTCollectionViewWaterfallLayout *layout =
+    (CHTCollectionViewWaterfallLayout *)self.collectionView.collectionViewLayout;
+    layout.columnCount = UIInterfaceOrientationIsPortrait(orientation) ? 2 : 3;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -51,6 +79,7 @@ static NSString * const reuseIdentifier = @"AboutCell";
 - (void)getDataFromAPI {
     [About callGetFeedAPI:self.navigationController.view completion:^(NSArray *feedArray) {
         feedsArray = feedArray;
+        cellSize = [[NSMutableArray alloc] initWithCapacity:[feedsArray count]];
         [self.collectionView reloadData];
         
     } error:^(NSString *error) {
@@ -67,6 +96,7 @@ static NSString * const reuseIdentifier = @"AboutCell";
 - (IBAction)tapRefresh:(UIBarButtonItem *)sender {
     [self getDataFromAPI];
     feedsArray = nil;
+    [cellSizeDictionary removeAllObjects];
     [self.collectionView reloadData];
 }
 
@@ -77,17 +107,25 @@ static NSString * const reuseIdentifier = @"AboutCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    AboutCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    AboutCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AboutCell" forIndexPath:indexPath];
 
     About *about = [feedsArray objectAtIndex:indexPath.row];
     
     cell.titleLabel.text        = about.feedTitle;
     cell.bannerImageView.image  = nil;
+    [cell.bannerImageView setHidden:NO];
+    
     if (![about.feedImageUrl isEqualToString:@""]) {
         //Feed image object is empty, Download image from Url using SWNetworking library
         if (about.feedImage == nil) {
             [cell.bannerImageView loadWithURLString:about.feedImageUrl loadFromCacheFirst:YES complete:^(UIImage *image) {
                 about.feedImage = image;
+                //add image size into dictionary
+                [cellSizeDictionary setObject:[NSValue valueWithCGSize:CGSizeMake(image.size.width, image.size.height)] forKey:[NSNumber numberWithInteger:indexPath.row]];
+                [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+                
+            } errorBlock:^(NSString *error) {
+                [cellSizeDictionary setObject:[NSValue valueWithCGSize:CGSizeMake(0, 150)] forKey:[NSNumber numberWithInteger:indexPath.row]];
             }];
             
         } else {
@@ -96,11 +134,8 @@ static NSString * const reuseIdentifier = @"AboutCell";
         }
     } else {
         //Image url is empty, reset the constant and hide the image view
+        [cellSizeDictionary setObject:[NSValue valueWithCGSize:CGSizeMake(0, 150)] forKey:[NSNumber numberWithInteger:indexPath.row]];
         [cell.bannerImageView setHidden:YES];
-//        cell.titleLeadingConstraint.constant        = 0.0f;
-//        cell.descriptionLeadingConstraint.constant  = 0.0f;
-//        cell.imageViewWidthConstraint.constant      = 0.0f;
-//        cell.imageViewHeightConstraint.constant     = 0.0f;
     }
     cell.bannerButton.tag = indexPath.row;
     [cell.bannerButton addTarget:self action:@selector(tapImageView:) forControlEvents:UIControlEventTouchUpInside];
@@ -108,44 +143,20 @@ static NSString * const reuseIdentifier = @"AboutCell";
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(350, 200);
+    if ([cellSizeDictionary count] > 0) {
+        return [[cellSizeDictionary objectForKey:[NSNumber numberWithInteger:indexPath.row]] CGSizeValue];
+    } else {
+        return CGSizeMake(0, 0);
+    }
 }
-
-#pragma mark <UICollectionViewDelegate>
-
-/*
-// Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
-}
-*/
-
-/*
-// Uncomment this method to specify if the specified item should be selected
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-*/
-
-/*
-// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
-}
-
-- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
-}
-*/
 
 #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    return NO;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
      if ([segue.identifier isEqualToString:@"DetailView"]) {
          DetailViewController *detailViewController = segue.destinationViewController;
          detailViewController.about = (About *)sender;

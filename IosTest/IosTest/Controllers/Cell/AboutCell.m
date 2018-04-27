@@ -10,4 +10,11 @@
 
 @implementation AboutCell
 
+-(void)awakeFromNib {
+    [super awakeFromNib];
+    self.bannerImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    self.bannerImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.bannerImageView.layer setMasksToBounds:YES];
+}
+
 @end

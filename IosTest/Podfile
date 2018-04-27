@@ -7,5 +7,6 @@ target 'IosTest' do
 
   # Pods for IosTest
   pod "SWNetworking"
-
+  pod 'CHTCollectionViewWaterfallLayout'
+  
 end

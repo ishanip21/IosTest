@@ -11,5 +11,7 @@
 @interface DetailCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIImageView *bannerImageView;
 
 @end

@@ -7,6 +7,8 @@
 //
 
 #import "HomeViewController.h"
+#import "DetailViewController.h"
+#import <SWNetworking/UIImageView+SWNetworking.h>
 #import "AboutCell.h"
 #import "About.h"
 
@@ -23,9 +25,7 @@ static NSString * const reuseIdentifier = @"AboutCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Register cell classes
-    //[self.collectionView registerClass:[AboutCell class] forCellWithReuseIdentifier:reuseIdentifier];
-    
+    self.title = @"About Canada";
     [self getDataFromAPI];
 }
 
@@ -58,6 +58,10 @@ static NSString * const reuseIdentifier = @"AboutCell";
     }];
 }
 
+- (void)tapImageView:(UIButton *)sender {
+    [self performSegueWithIdentifier:@"DetailView" sender:[feedsArray objectAtIndex:sender.tag]];
+}
+
 #pragma mark - Action methods
 
 - (IBAction)tapRefresh:(UIBarButtonItem *)sender {
@@ -65,16 +69,6 @@ static NSString * const reuseIdentifier = @"AboutCell";
     feedsArray = nil;
     [self.collectionView reloadData];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark - UICollectionViewDataSource
 
@@ -88,13 +82,33 @@ static NSString * const reuseIdentifier = @"AboutCell";
     About *about = [feedsArray objectAtIndex:indexPath.row];
     
     cell.titleLabel.text        = about.feedTitle;
-    cell.descriptionLabel.text  = about.feedDescription;
-    
+    cell.bannerImageView.image  = nil;
+    if (![about.feedImageUrl isEqualToString:@""]) {
+        //Feed image object is empty, Download image from Url using SWNetworking library
+        if (about.feedImage == nil) {
+            [cell.bannerImageView loadWithURLString:about.feedImageUrl loadFromCacheFirst:YES complete:^(UIImage *image) {
+                about.feedImage = image;
+            }];
+            
+        } else {
+            //Set image, already download image object
+            [cell.bannerImageView setImage:about.feedImage];
+        }
+    } else {
+        //Image url is empty, reset the constant and hide the image view
+        [cell.bannerImageView setHidden:YES];
+//        cell.titleLeadingConstraint.constant        = 0.0f;
+//        cell.descriptionLeadingConstraint.constant  = 0.0f;
+//        cell.imageViewWidthConstraint.constant      = 0.0f;
+//        cell.imageViewHeightConstraint.constant     = 0.0f;
+    }
+    cell.bannerButton.tag = indexPath.row;
+    [cell.bannerButton addTarget:self action:@selector(tapImageView:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(350, 100);
+    return CGSizeMake(350, 200);
 }
 
 #pragma mark <UICollectionViewDelegate>
@@ -127,5 +141,15 @@ static NSString * const reuseIdentifier = @"AboutCell";
 	
 }
 */
+
+#pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+     if ([segue.identifier isEqualToString:@"DetailView"]) {
+         DetailViewController *detailViewController = segue.destinationViewController;
+         detailViewController.about = (About *)sender;
+     }
+ }
 
 @end

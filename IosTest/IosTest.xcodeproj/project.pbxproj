@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		4457D5B1AC5E31E91DDD0C8E /* libPods-IosTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B1DE87115EEC85C9FA2F059 /* libPods-IosTest.a */; };
+		863CEA6B2092B3720095A454 /* DetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 863CEA6A2092B3720095A454 /* DetailCell.m */; };
+		863CEA6E2092B4160095A454 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 863CEA6D2092B4160095A454 /* DetailViewController.m */; };
+		863CEA712092CC500095A454 /* DetailLandscapeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 863CEA702092CC500095A454 /* DetailLandscapeCell.m */; };
 		865276F12091798C00A84E94 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 865276EF2091798C00A84E94 /* Main.storyboard */; };
 		865276F32091798C00A84E94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 865276F22091798C00A84E94 /* Assets.xcassets */; };
 		865276F62091798C00A84E94 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 865276F42091798C00A84E94 /* LaunchScreen.storyboard */; };
@@ -22,6 +25,12 @@
 
 /* Begin PBXFileReference section */
 		7B1DE87115EEC85C9FA2F059 /* libPods-IosTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IosTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		863CEA692092B3720095A454 /* DetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailCell.h; sourceTree = "<group>"; };
+		863CEA6A2092B3720095A454 /* DetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailCell.m; sourceTree = "<group>"; };
+		863CEA6C2092B4160095A454 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		863CEA6D2092B4160095A454 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		863CEA6F2092CC500095A454 /* DetailLandscapeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailLandscapeCell.h; sourceTree = "<group>"; };
+		863CEA702092CC500095A454 /* DetailLandscapeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailLandscapeCell.m; sourceTree = "<group>"; };
 		865276E62091798C00A84E94 /* IosTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IosTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		865276F02091798C00A84E94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		865276F22091798C00A84E94 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -132,6 +141,10 @@
 			children = (
 				865277122091869E00A84E94 /* AboutCell.h */,
 				865277132091869E00A84E94 /* AboutCell.m */,
+				863CEA692092B3720095A454 /* DetailCell.h */,
+				863CEA6A2092B3720095A454 /* DetailCell.m */,
+				863CEA6F2092CC500095A454 /* DetailLandscapeCell.h */,
+				863CEA702092CC500095A454 /* DetailLandscapeCell.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -150,6 +163,8 @@
 			children = (
 				8652770F2091860400A84E94 /* HomeViewController.h */,
 				865277102091860400A84E94 /* HomeViewController.m */,
+				863CEA6C2092B4160095A454 /* DetailViewController.h */,
+				863CEA6D2092B4160095A454 /* DetailViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -296,8 +311,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				863CEA712092CC500095A454 /* DetailLandscapeCell.m in Sources */,
 				8652770220917DF700A84E94 /* AppDelegate.m in Sources */,
 				865277172092153000A84E94 /* NSDictionary+NSDictionary.m in Sources */,
+				863CEA6E2092B4160095A454 /* DetailViewController.m in Sources */,
+				863CEA6B2092B3720095A454 /* DetailCell.m in Sources */,
 				865277142091869E00A84E94 /* AboutCell.m in Sources */,
 				8652770E2091852700A84E94 /* About.m in Sources */,
 				865276F92091798C00A84E94 /* main.m in Sources */,
